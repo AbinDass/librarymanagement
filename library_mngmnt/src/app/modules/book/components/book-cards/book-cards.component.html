@@ -1,0 +1,49 @@
+<div class="flex flex-wrap justify-around p-10">
+    <div *ngFor="let book of allBooks" class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl rounded overflow-hidden shadow-lg bg-white mx-auto mb-8">
+      <img class="w-full h-40 sm:h-48 object-cover" [src]="book?.image" alt="bookimage" />
+  
+      <div class="px-6 py-4">
+        <div class="font-bold text-lg sm:text-xl mb-2">{{ book?.bookname }}</div>
+        <p class="text-gray-700 text-base">{{ book?.author }}</p>
+      </div>
+  
+      <div class="px-6 pt-4 pb-2">
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700 mr-2">
+          Price: {{ book?.price | currency : "INR" }}
+        </span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700 mr-2">
+          Available: {{ book?.available }}
+        </span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700">
+          Year: {{ book?.year  }}
+        </span>
+      </div>
+  
+      <div *ngIf="admin; else userSection" class="flex justify-center mt-4">
+        <button [routerLink]="'/admin/editbook/' + book._id" class="w-full md:w-28 sm:w-32 h-10 rounded bg-blue-500/50 hover:bg-blue-500 text-white">
+          Edit Book
+        </button>
+        <button [routerLink]="'/admin/transaction/' + book._id" class="w-full md:w-28 sm:w-32 h-10 rounded bg-blue-500/50 hover:bg-blue-500 text-white ml-4">
+          Transactions
+        </button>
+      </div>
+  
+      <ng-template #userSection>
+        <div class="flex justify-center mt-4">
+          <button *ngIf="!isborrowed" (click)="borrowBook(book._id)" class="w-full h-10 rounded bg-yellow-400/50 hover:bg-yellow-400 text-white">
+            Borrow
+          </button>
+          <button *ngIf="isborrowed" (click)="returnBook(book._id)" class="w-full md:w-28 sm:w-32 h-10 rounded bg-red-400/50 hover:bg-red-400 text-white ml-4">
+            Return
+          </button>
+        </div>
+      </ng-template>
+    </div>
+    <div *ngIf="!allBooks.length">
+        <div class="flex justify-center items-center h-32 w-full bg-yellow-200 text-yellow-800 text-xl font-bold" *ngIf="!allBooks || allBooks.length === 0">
+            No books available at the moment.
+          </div>
+          
+    </div>
+  </div>
+  

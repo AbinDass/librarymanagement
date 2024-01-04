@@ -1,0 +1,42 @@
+<!-- app.component.html -->
+
+<div class="bg-gray-800 text-white">
+    <div class="container mx-auto flex items-center justify-between py-4">
+      <div>
+        <h1 class="text-2xl font-bold">PHEONIX</h1>
+      </div>
+      <div class="lg:hidden">
+        <button
+          id="toggleButton"
+          class="text-white focus:outline-none focus:shadow-outline-gray"
+          (click)="toggleMenu()"
+        >
+          <svg
+            class="h-6 w-6 fill-current"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M3 5C3 4.44772 3.44772 4 4 4H20C20.5523 4 21 4.44772 21 5C21 5.55228 20.5523 6 20 6H4C3.44772 6 3 5.55228 3 5ZM3 12C3 11.4477 3.44772 11 4 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H4C3.44772 13 3 12.5523 3 12ZM3 18C3 17.4477 3.44772 17 4 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="hidden md:flex capitalize pr-10 space-x-4">
+        <a routerLink="/userhome">home</a>
+        <a routerLink="/userhome/borrow">borrowed-items</a>
+        <a routerLink="/userhome/userprofile">Profile</a>
+        <a  class="block py-2 px-4" (click)="logOut()">Logout</a>
+      </div>
+    </div>
+  </div>
+  
+  <div [ngClass]="{'hidden': isMobileView}" #mobileMenu id="mobileMenu" class="lg:hidden capitalize bg-gray-800 text-white">
+    <a routerLink="/userhome" class="block py-2 px-4">home</a>
+    <a routerLink="/userhome/borrow" class="block py-2 px-4">borrowed-items</a>
+    <a routerLink="/userhome/userprofile" class="block py-2 px-4">Profile</a>
+    <a  class="block py-2 px-4" (click)="logOut()">Logout</a>
+  </div>
+  

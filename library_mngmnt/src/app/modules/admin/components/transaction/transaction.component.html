@@ -1,0 +1,55 @@
+<div class="flex">
+    <!-- Tab 1: Borrowed Users -->
+    <div class="flex-1">
+        <h2 class="text-2xl font-bold mb-4">Borrowed Users</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <!-- Table header -->
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b">User Name</th>
+                    <th class="py-2 px-4 border-b">Email</th>
+                    <!-- Add more headers if needed -->
+                </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody>
+                <!-- Iterate over borrowedUsers array and display user details -->
+                <tr *ngFor="let user of borrowedUser">
+                    <td class="py-2 px-4 border-b">{{ user.userId.firstname }} {{ user.userId.lastname }}</td>
+                    <td class="py-2 px-4 border-b">{{ user.userId.email }}</td>
+                    <!-- Add more columns if needed -->
+                </tr>
+                <!-- <tr *ngIf="borrowedUser?.length === 0">
+                    <td colspan="2" class="text-center py-2">No users</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tab 2: Returned Users -->
+    <div class="flex-1">
+        <h2 class="text-2xl font-bold mb-4">Returned Users</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <!-- Table header -->
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b">User Name</th>
+                    <th class="py-2 px-4 border-b">Email</th>
+                    <!-- Add more headers if needed -->
+                </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody>
+                <!-- Iterate over returnedUsers array and display user details -->
+                <tr *ngFor="let user of returnedUser">
+                    <td class="py-2 px-4 border-b">{{ user.userId.firstname }} {{ user.userId.lastname }}</td>
+                    <td class="py-2 px-4 border-b">{{ user.userId.email }}</td>
+                    <!-- Add more columns if needed -->
+                </tr>
+                <tr *ngIf="!returnedUser?.length">
+                    <td colspan="2" class="text-center py-2">No users</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

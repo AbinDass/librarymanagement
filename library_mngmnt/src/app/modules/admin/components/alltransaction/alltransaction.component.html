@@ -1,0 +1,31 @@
+<div class="overflow-x-auto">
+    <div class="bg-white shadow-md rounded my-6">
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Book Name</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Author</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Published </th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Price</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Available</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">User Name</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Email</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Is Returned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.bookname }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.author }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.year }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.price }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.available }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.user.firstname }} {{ transaction.user.lastname }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.user.email }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.isReturned ? "returned" : "N/A" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

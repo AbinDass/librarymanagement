@@ -1,0 +1,42 @@
+<p class="text-2xl capitalize font-medium text-center py-10">users list</p>
+<table class="min-w-full bg-white border border-gray-300">
+  <thead>
+    <tr>
+      <th class="py-2 px-4 border-b text-center align-middle">First Name</th>
+      <th class="py-2 px-4 border-b text-center align-middle">Last Name</th>
+      <th class="py-2 px-4 border-b text-center align-middle">Email</th>
+      <th class="py-2 px-4 border-b text-center align-middle">Phone</th>
+      <th class="py-2 px-4 border-b text-center align-middle">Role</th>
+      <th class="py-2 px-4 border-b text-center align-middle">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of alluser">
+      <td class="py-2 px-4 border-b text-center align-middle">
+        {{ user.firstname }}
+      </td>
+      <td class="py-2 px-4 border-b text-center align-middle">
+        {{ user.lastname }}
+      </td>
+      <td class="py-2 px-4 border-b text-center align-middle">
+        {{ user.email }}
+      </td>
+      <td class="py-2 px-4 border-b text-center align-middle">
+        {{ user.phone }}
+      </td>
+      <td class="py-2 px-4 border-b text-center align-middle">
+        {{ user.role }}
+      </td>
+      <td class="py-2 px-4 border-b text-center align-middle">
+        <div class="flex items-center justify-center mt-4">
+          <button
+          [routerLink]="'/admin/edituser/'+ user._id"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 sm:px-6 sm:py-3 lg:px-8 lg:py-4"
+          >
+            Edit User
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

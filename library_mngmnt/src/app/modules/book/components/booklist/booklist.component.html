@@ -1,0 +1,26 @@
+
+
+<div *ngIf="role ==='admin'">
+
+    <section class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto text-center">
+          <h1 class="text-4xl font-bold mb-4">Welcome to Phoenix Library Admin Portal</h1>
+          <p class="text-lg mb-8">Efficiently manage your library with our powerful admin tools</p>
+        </div>
+      </section>
+</div>
+  <div *ngIf="role === 'user'">
+    <section class="hero flex items-center justify-center">
+        <div class="hero-content text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">Welcome to Our Library</h1>
+          <p class="text-lg text-gray-600 mb-8">Explore a vast collection of books and discover new worlds.</p>
+        </div>
+      </section>
+      
+      
+  </div>
+
+<div >
+    <app-book-cards></app-book-cards>
+</div>
+

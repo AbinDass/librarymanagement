@@ -1,0 +1,40 @@
+<!-- app.component.html -->
+<div class="bg-gray-800 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo/Home link -->
+    <a routerLink="" class="text-white text-xl font-bold">PHEONIX Admin</a>
+
+    <!-- Navigation Links - Desktop -->
+    <div class="hidden md:flex space-x-4">
+      <a routerLink="/admin" class="text-white">Home</a>
+      <a routerLink="alltransaction" class=" text-white"
+        >all-transaction</a
+      >
+      <a routerLink="/admin/users" class="text-white">Users</a>
+      <a routerLink="/admin/addbook" class="text-white">Add Book</a>
+      <a routerLink="" (click)="logOut()" class="text-white">Logout</a>
+    </div>
+
+    <!-- Mobile Toggle Button -->
+    <button
+      class="md:hidden text-white focus:outline-none"
+      (click)="toggleMobileNav()"
+    >
+      ☰
+    </button>
+  </div>
+
+  <!-- Navigation Links - Mobile (shown when toggle is active) -->
+  <div
+    class="md:hidden mt-4"
+    [ngClass]="{ block: isMobileNavActive, hidden: !isMobileNavActive }"
+  >
+    <a routerLink="admin" class="block text-white py-2">Home</a>
+    <a routerLink="alltransaction" class="block text-white py-2"
+      >all-transaction</a
+    >
+    <a routerLink="users" class="block text-white py-2">Users</a>
+    <a routerLink="addbook" class="block text-white py-2">Add Book</a>
+    <a routerLink="" class="block text-white py-2">Logout</a>
+  </div>
+</div>

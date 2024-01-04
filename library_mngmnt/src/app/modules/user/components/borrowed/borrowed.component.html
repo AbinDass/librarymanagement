@@ -1,0 +1,49 @@
+<!-- cart.component.html -->
+
+<div *ngIf="borrowedBooks.length" class="container mx-auto mt-8">
+    <h2 class="text-2xl font-bold mb-4 capitalize">Borrowed Book List</h2>
+  
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr >
+          <th class="py-2 px-4 border-b text-center">Book image</th>
+          <th class="py-2 px-4 border-b text-center">Book Name</th>
+          <th class="py-2 px-4 border-b text-center">Author</th>
+          <th class="py-2 px-4 border-b text-center">available</th>
+          <th class="py-2 px-4 border-b text-center">Price</th>
+          <th class="py-2 px-4 border-b text-center">return</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Replace this with *ngFor loop in Angular template -->
+        <tr *ngFor="let book of borrowedBooks">
+          <td class="py-2 px-4 border-b text-center"><img class="h-32 w-32" [src]="book.image" alt=""></td>
+          <td class="py-2 px-4 border-b text-center">{{book.bookname}}</td>
+          <td class="py-2 px-4 border-b text-center">{{book.author}}</td>
+          <td class="py-2 px-4 border-b text-center">{{book.available}}</td>
+          <td class="py-2 px-4 border-b text-center">{{book.price}}</td>
+          <td class="py-2 px-4 border-b text-center">
+            <div class="flex justify-center">
+              <!-- Replace this button with your checkout or order button -->
+              <button (click)="returnBook(book._id)" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">return</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!borrowedBooks.length">
+    <div class="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">! warning</div>
+          <p class="text-gray-700 text-base">
+            there is no borrowed boos 
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block bg-blue-500 text-white py-1 px-2 rounded-full text-xs font-semibold mr-2">add to borrowed collection </span>
+        </div>
+      </div>
+      
+  </div>
