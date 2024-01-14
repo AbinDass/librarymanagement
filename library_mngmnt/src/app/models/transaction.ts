@@ -1,6 +1,7 @@
 interface Book {
     _id: string;
     bookname: string;
+    ISBN:string;
     author: string;
     image:string;
     year: string;

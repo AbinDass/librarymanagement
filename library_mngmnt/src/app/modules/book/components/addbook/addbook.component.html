@@ -2,6 +2,15 @@
     <h2 class="text-3xl font-bold mb-6 text-center">Add a Book</h2>
   
     <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="max-w-md mx-auto">
+      <!-- ISBN -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-semibold text-gray-600">ISBN NUMBER:</label>
+        <input type="text" id="name" formControlName="ISBN" class="mt-1 p-2 w-full border rounded-md" />
+        <div>
+            {{ bookErrors() }}
+            <p class="text-red-600">{{ error.ISBN }}</p>
+          </div>
+      </div>
       <!-- Book Name -->
       <div class="mb-4">
         <label for="name" class="block text-sm font-semibold text-gray-600">Book Name:</label>
@@ -19,6 +28,15 @@
         <div>
             {{ bookErrors() }}
             <p class="text-red-600">{{ error.author }}</p>
+          </div>
+      </div>
+      <!-- publisher -->
+      <div class="mb-4">
+        <label for="publisher" class="block text-sm font-semibold text-gray-600">publisher:</label>
+        <input type="text" id="publisher" formControlName="publisher" class="mt-1 p-2 w-full border rounded-md" />
+        <div>
+            {{ bookErrors() }}
+            <p class="text-red-600">{{ error.publisher }}</p>
           </div>
       </div>
 
@@ -41,7 +59,15 @@
             <p class="text-red-600">{{ error.price }}</p>
           </div>
       </div>
-  
+        <!-- summury -->
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-semibold text-gray-600">summury:</label>
+          <input type="text" id="name" formControlName="summury" class="mt-1 p-2 w-full border rounded-md" />
+          <div>
+              {{ bookErrors() }}
+              <p class="text-red-600">{{ error.bookname }}</p>
+            </div>
+        </div>
       <!-- Available -->
       <div class="mb-4">
         <label for="available" class="block text-sm font-semibold text-gray-600">Available:</label>

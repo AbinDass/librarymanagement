@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private ExludeUrl(url:string):boolean{
     const urls=['/login','/register']
-    return urls.some((urls)=> url.includes(urls) )
+    return urls.some((urls)=> url.includes(urls))
   }
 
 }

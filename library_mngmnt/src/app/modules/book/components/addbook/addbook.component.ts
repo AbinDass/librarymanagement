@@ -14,13 +14,17 @@ import { toBase64 } from 'src/app/helper/toBase64';
 })
 export class AddbookComponent {
   error: bookError = {
+    ISBN:'',
     bookname: '',
     author: '',
+    publisher:'',
     image: '',
+    summury:'',
     price: '',
     available: '',
     year: '',
   };
+
   bookImg!:string|null;
 
   bookForm!: FormGroup;
@@ -38,9 +42,13 @@ export class AddbookComponent {
 
   initForm(): void {
     this.bookForm = this.fb.group({
+      ISBN: ['', [Validators.required, Validators.minLength(13)]],
       bookname: ['', [Validators.required, Validators.minLength(3)]],
       author: ['', [Validators.required]],
+      publisher: ['', [Validators.required]],
       image: [null, [Validators.required]],
+      summury: ['', [Validators.required, Validators.minLength(3)]],
+
       price: ['', [Validators.required, Validators.min(0)]],
       available: ['', [Validators.required, Validators.min(0)]],
       year: ['', [Validators.required]],
@@ -56,9 +64,12 @@ export class AddbookComponent {
  
 
   onSubmit(): void {
+    console.log(`object`)
     if (this.bookForm.valid) {
+      console.log(`object 123`)
       
       const formData: Book = this.bookForm.value;
+      console.log(formData,'data--')
       this.bookService.createBook(formData,this.bookImg)
       .subscribe((data: Book) => {
         if (data) alert(`book added succesfully `);
@@ -67,14 +78,25 @@ export class AddbookComponent {
     }
   }
   bookErrors() {
-    //bookname error
+    const ISBNControl = this.bookForm.controls['ISBN'];
     const booknameControl = this.bookForm.controls['bookname'];
     const authorControl = this.bookForm.controls['author'];
+    const publisherControl = this.bookForm.controls['publisher'];
     const bookimageControl = this.bookForm.controls['image'];
+    const summuryControl = this.bookForm.controls['summury'];
     const priceControl = this.bookForm.controls['price'];
     const availableControl = this.bookForm.controls['available'];
     const yearControl = this.bookForm.controls['year'];
-
+    // ISBN error
+    if (ISBNControl.touched && ISBNControl.invalid) {
+      if (ISBNControl.getError('required'))
+        this.error.ISBN = '  ISBN is required';
+      else if (ISBNControl.getError('maxlength'))
+        this.error.ISBN = 'maximum length is 13 characters';
+      else if (ISBNControl.getError('minlength'))
+        this.error.ISBN = 'min 13 letter required';
+    } else this.error.ISBN = '';
+    //bookname error
     if (booknameControl.touched && booknameControl.invalid) {
       if (booknameControl.getError('required'))
         this.error.bookname = '  bookname is required';
@@ -92,6 +114,15 @@ export class AddbookComponent {
       else if (authorControl.getError('minlength'))
         this.error.author = 'min 3 letter required';
     } else this.error.author = '';
+    //publishername error
+    if (publisherControl.touched && publisherControl.invalid) {
+      if (publisherControl.getError('required'))
+        this.error.publisher = '  publisher name is required';
+      else if (publisherControl.getError('maxlength'))
+        this.error.publisher = 'maximum length is 20 characters';
+      else if (publisherControl.getError('minlength'))
+        this.error.publisher = 'min 3 letter required';
+    } else this.error.publisher = '';
 
     // bookimage error
     if (bookimageControl.touched && bookimageControl.invalid) {
@@ -100,6 +131,17 @@ export class AddbookComponent {
       else if (bookimageControl.getError('image'))
         this.error.image = ' please enter a valid image';
     } else this.error.image = '';
+
+    //summury error
+    if (summuryControl.touched && summuryControl.invalid) {
+      if (summuryControl.getError('required'))
+        this.error.summury = '  summury name is required';
+      else if (summuryControl.getError('maxlength'))
+        this.error.summury = 'maximum length is 20 characters';
+      else if (summuryControl.getError('minlength'))
+        this.error.summury = 'min 3 letter required';
+    } else this.error.summury = '';
+
 
     // price error
     if (priceControl.touched && priceControl.invalid) {

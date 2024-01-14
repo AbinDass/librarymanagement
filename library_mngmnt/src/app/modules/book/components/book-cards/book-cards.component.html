@@ -1,10 +1,15 @@
 <div class="flex flex-wrap justify-around p-10">
-    <div *ngFor="let book of allBooks" class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl rounded overflow-hidden shadow-lg bg-white mx-auto mb-8">
-      <img class="w-full h-40 sm:h-48 object-cover" [src]="book?.image" alt="bookimage" />
+    <div *ngFor="let book of allBooks" class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl rounded overflow-hidden shadow-lg bg-white mx-auto mb-8 flex flex-col items-center ">
+      <img class="w-40 h-40 sm:h-48 object-cover" [src]="book?.image" alt="bookimage" />
   
       <div class="px-6 py-4">
         <div class="font-bold text-lg sm:text-xl mb-2">{{ book?.bookname }}</div>
-        <p class="text-gray-700 text-base">{{ book?.author }}</p>
+        <p class="text-gray-700 text-base capitalize">Author: {{ book?.author }}</p>
+        <p class="text-gray-700 text-base capitalize">publisher :{{ book?.publisher }}</p>
+        <div class="flex  py-2 ">
+          <span>summury:</span>
+          <p class=" text-base text-red-500">{{ book?.summury }}</p>
+        </div>
       </div>
   
       <div class="px-6 pt-4 pb-2">
@@ -15,7 +20,7 @@
           Available: {{ book?.available }}
         </span>
         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700">
-          Year: {{ book?.year  }}
+          Added date: {{ book?.year  }}
         </span>
       </div>
   
@@ -29,7 +34,7 @@
       </div>
   
       <ng-template #userSection>
-        <div class="flex justify-center mt-4">
+        <div class="flex w-full justify-center mt-4">
           <button *ngIf="!isborrowed" (click)="borrowBook(book._id)" class="w-full h-10 rounded bg-yellow-400/50 hover:bg-yellow-400 text-white">
             Borrow
           </button>

@@ -4,6 +4,7 @@
         <thead>
           <tr>
             <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Book Name</th>
+            <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">ISBN</th>
             <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Author</th>
             <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Published </th>
             <th class="py-3 px-6 border-b border-gray-300 bg-gray-100 text-center">Price</th>
@@ -16,6 +17,7 @@
         <tbody>
           <tr *ngFor="let transaction of transactions">
             <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.bookname }}</td>
+            <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.ISBN }}</td>
             <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.author }}</td>
             <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.year }}</td>
             <td class="py-3 px-6 border-b border-gray-300 text-center">{{ transaction.book.price }}</td>

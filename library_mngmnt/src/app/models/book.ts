@@ -1,7 +1,10 @@
 export interface Book {
+  ISBN:string;
   bookname: string;
   author: string;
+  publisher:string
   image: string;
+  summury:string;
   price: number;
   available: number;
   year: Date|null;
@@ -14,9 +17,12 @@ export interface allBooks{
 }
 
 export interface bookError {
+  ISBN:string,
   bookname: string;
   author: string;
+  publisher:string;
   image: string;
+  summury:string;
   price: string;
   available: string;
   year: string;

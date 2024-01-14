@@ -3,18 +3,21 @@ import { bookSchemaValidator } from "../config/joyValidation.js";
 import bookDb from "../models/book.js";
 import borrowDb from "../models/borrowedBook.js";
 import returnDb from "../models/returnedBook.js";
-import {Types} from 'mongoose'
+import { Types } from "mongoose";
 export const createBook = async (req, res) => {
     try {
-        const { bookname, author, price, year, available } = req.body.bookData;
+        const { ISBN, bookname, author, publisher, summury, price, available, year,  } = req.body.bookData;
         const image = req.body.bookImg;
         const bookExist = await bookDb.findOne({ bookname: bookname });
         console.log(`ivde`);
         if (!bookExist) {
             const newBook = new bookDb({
+                ISBN,
                 bookname,
                 author,
+                publisher,
                 image,
+                summury,
                 price,
                 year,
                 available,
@@ -39,16 +42,19 @@ export const updateBook = async (req, res) => {
         // }
         const existbook = await bookDb.findOne({ _id: bookid });
         console.log(req.body, 111111, bookid);
-        const { bookname, author, price, available, year } = req.body.bookData;
+        const { ISBN, bookname, author, publisher, summury, price, available, year,  } = req.body.bookData;
         const image = req.body.bookImg;
         if (existbook) {
             const updatedBook = await bookDb.findByIdAndUpdate(
                 bookid,
                 {
                     $set: {
+                        ISBN,
                         bookname,
                         author,
+                        publisher,
                         image,
+                        summury,
                         price,
                         year,
                         available,
@@ -104,10 +110,10 @@ export const borrow = async (req, res) => {
             return res.status(400).json({ message: "Both bookId and userId are required." });
         }
         // taking count of array
-       let count =  await borrowDb.countDocuments({userId})
-       if(count === 5) {
-        res.status(200).json({limit:`limit-reached`})
-       }
+        let count = await borrowDb.countDocuments({ userId });
+        if (count === 5) {
+            res.status(200).json({ limit: `limit-reached` });
+        }
         // Check if the book is already borrowed by the user
         const existingBorrow = await borrowDb.findOne({ bookId, userId });
 
@@ -172,15 +178,13 @@ export const returnBook = async (req, res) => {
         // Delete the borrowed record
         const deletedData = await borrowDb.deleteOne({ _id: existingBorrow._id });
         if (deletedData) {
-            
-                // Save the returned book record
-                const returnBook = new returnDb({
-                    bookId: bookId,
-                    userId: userId,
-                });
+            // Save the returned book record
+            const returnBook = new returnDb({
+                bookId: bookId,
+                userId: userId,
+            });
 
-                await returnBook.save();
-            
+            await returnBook.save();
         }
         const book = await bookDb.findById(bookId);
 
@@ -190,7 +194,7 @@ export const returnBook = async (req, res) => {
 
         // Increase available count only if the book is successfully returned
         book.available += 1;
-        console.log(book)
+        console.log(book);
         const result = await book.save();
 
         res.status(200).json(result);
@@ -208,53 +212,49 @@ export const getBookUsers = async (req, res) => {
         // bookId = new Types.ObjectId(bookId)
 
         // Fetch borrowed users
-        const borrowedUsers = await borrowDb.find({ bookId }).populate('userId');
+        const borrowedUsers = await borrowDb.find({ bookId }).populate("userId");
         // Fetch returned users
-        const returnedUsers = await returnDb.find({ bookId }).populate('userId');
+        const returnedUsers = await returnDb.find({ bookId }).populate("userId");
         res.status(200).json({ borrowedUsers, returnedUsers });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({ error: error.message, message: "Something went wrong" });
     }
 };
 
-
 export const getallTransaction = async (req, res) => {
     try {
-        
-
         const result = await borrowDb.aggregate([
-           
             {
                 $lookup: {
                     from: "returnedbooks",
                     localField: "bookId",
                     foreignField: "bookId",
-                    as: "returnInfo"
-                }
+                    as: "returnInfo",
+                },
             },
             {
                 $lookup: {
                     from: "books",
                     localField: "bookId",
                     foreignField: "_id",
-                    as: "bookInfo"
-                }
+                    as: "bookInfo",
+                },
             },
             {
                 $lookup: {
                     from: "users",
                     localField: "userId",
                     foreignField: "_id",
-                    as: "userInfo"
-                }
+                    as: "userInfo",
+                },
             },
             {
                 $addFields: {
                     returned: {
-                        $size: "$returnInfo"
-                    }
-                }
+                        $size: "$returnInfo",
+                    },
+                },
             },
             {
                 $project: {
@@ -263,19 +263,14 @@ export const getallTransaction = async (req, res) => {
                     borrowed: 1,
                     book: { $arrayElemAt: ["$bookInfo", 0] },
                     user: { $arrayElemAt: ["$userInfo", 0] },
-                    isReturned: { $gt: ["$returned", 0] }
-                }
-            }
+                    isReturned: { $gt: ["$returned", 0] },
+                },
+            },
         ]);
 
         res.status(200).json(result);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({ error: error.message, message: "Something went wrong" });
     }
 };
-
-
-
-
-

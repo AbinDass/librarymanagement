@@ -24,10 +24,6 @@ export const updateUser = async(req, res) =>{
     try {
         const userid = req.query.userid;
         console.log(req.body,111111,userid)
-        // const validateBook = bookSchemaValidator.validate(req.body);
-        // if (validateBook.error) {
-        //     return res.status(400).json({ message: "Validation error", error: validationResult.error.message });
-        // }
         const userexist = await userDb.findOne({ _id: userid });
         const {firstname,
             lastname,
